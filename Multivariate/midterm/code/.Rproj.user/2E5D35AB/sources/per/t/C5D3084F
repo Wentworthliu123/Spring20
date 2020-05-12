@@ -1,0 +1,26 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1588602804955.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4031482813",
+    "id" : "C5D3084F",
+    "lastKnownWriteTime" : 1588701167,
+    "last_content_update" : 1588701167138,
+    "path" : "D:/UChicago/Spring Course/Spring20/Multivariate/midterm/code/hw.Rmd",
+    "project_path" : "hw.Rmd",
+    "properties" : {
+        "chunk_output_type" : "inline",
+        "cursorPosition" : "56,0",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

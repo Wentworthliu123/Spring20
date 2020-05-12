@@ -1,0 +1,5 @@
+"0","source('ama.R')"
+"0","head_data=read.table(""SonsHead.DAT"",header=TRUE)"
+"0","y <- head_data[,1:2]"
+"0","x <- head_data[,3:4]"
+"0",""

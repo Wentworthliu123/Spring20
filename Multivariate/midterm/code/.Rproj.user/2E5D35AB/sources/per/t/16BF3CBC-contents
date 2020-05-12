@@ -1,0 +1,161 @@
+---
+title: "Midterm"
+author: "Xinyu LIU"
+date: "2020/5/5"
+output:
+  pdf_document: default
+  word_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r Problem F}
+source('ama.R')
+library(glmnet)
+source('Lassosim.R')
+wear_data=read.table("WEAR.DAT",header=TRUE)
+
+y=cbind(wear_data[,5],wear_data[,6],wear_data[,7]) 
+y1 <- factor(wear_data[,2])
+y2 <- factor(wear_data[,3])
+y3 <- factor(wear_data[,4])
+m2=manova(y~y1+y2+y3+y1*y2+y2*y3+y1*y3+y1*y2*y3)
+m2
+summary(m2,test="Wilks")
+```
+## 
+1. The table is shown above.
+
+2. See the table above. According to the Wilks test, we can identify factor1(P) and factor2(S) as well as the interaction term P*S are significant on the 5% level. 
+
+3. The p-value of the three-way interaction is 0.9167541, therefore it's not signifiant.
+
+4. The term P*S is significant at 5% level with p-value being 0.019.
+
+5. P and S are significant given there very low p-value.
+
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r problem G}
+
+# covariance matrices test
+temp_data=read.table("TEMPERATURE.DAT",header=TRUE)
+y <- temp_data[,1:3]
+x <- temp_data[,4:6]
+colnames(x)<-colnames(y)
+nv = c(dim(x)[1],dim(y)[1])
+data = rbind(x,y)
+BoxM(data,nv)
+
+
+```
+1. According to the BoxM test, p value is very small and we can reject the null hypothesis, meaning the covariance matrices of Y1 and Y2 are different.
+
+```{r}
+# mean test
+Behrens(x,y)
+
+```
+2. According to the Behrens test, p value is very small and we can reject the null hypothesis, meaning the mean matrices of Y1 and Y2 are different.
+```{r}
+confreg(y-x)
+```
+
+```{r}
+m4 <-mmlr(y,x)
+```
+4. See the detailed regression coefficients above. Note that this regression is significant.
+
+```{r}
+names(m4)
+m4$beta%*%c(90.7,70.1,109.5)
+
+```
+```{r}
+mmlrInt(m4,c(90.7,70.1,190.5))
+```
+
+
+```{r}
+z<-temp_data[,7:9]
+
+m7<-mmlr(z,y,constant=T)
+
+```
+Again this is a significant regression
+
+```{r}
+m9<-mmlr(z,x+y,constant =T)
+```
+Test statistics and pvalue show that this contribution is significant.
+
+```{r Problem }
+library(leaps)
+temp_data=read.table("TEMPERATURE.DAT",header=TRUE)
+y <- temp_data[,11]
+x <- temp_data[,1:10]
+
+x1=data.frame(x)
+nn=lm(y~.,data=x1) 
+step(nn)
+```
+1. The result shows  that:
+Step:  AIC=178.51
+y ~ y3 + y6 + y9 + y10
+```{r}
+lm(formula = y ~ y3 + y6 + y9 + y10, data = x1)
+
+```
+The coefficients above match the influence 
+
+```{r Problem H}
+leaps(x,y,nbest=1)
+
+```
+
+3. According to Cp value, closest but smaller, we conclude the best model is y3, y6, y9
+
+4. from leaps result, two predictor are y6, y9
+
+5. from leaps result, two predictor are y3, y6, y9
+
+```{r}
+# Lasso regression
+library(glmnet)
+source('Lassosim.R')
+da = read.csv(file = 'ProblemI.csv')
+y1 <- as.numeric(da[,1]) 
+x1 <- matrix(unlist(da[,2:501]), ncol = 500, byrow = FALSE)
+require(glmnet)
+m2 <- glmnet(x1,y1,alpha=1,nfolds = 10)
+cv.m2 <- cv.glmnet(x1,y1,alpha=1,nfolds = 10)
+cv.m2$lambda.min
+plot(m2)
+
+plot(cv.m2)
+b1 <-coef(m2,s=cv.m2$lambda.min)
+plot(1:501,b1[,1])
+idx <- c(1:500)[abs(b1[2:501,1])>0.2]
+
+```
+index are : 23 144 204 394 439 467
+```{r}
+plot(cv.m2)
+b1 <-coef(m2,s=cv.m2$lambda.min)
+plot(1:501,b1[,1])
+idx <- c(1:500)[abs(b1[2:501,1])>0.2]
+
+```

@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1588603768159.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3685826304",
+    "id" : "C92DFE73",
+    "lastKnownWriteTime" : 1587524993,
+    "last_content_update" : 1587524993,
+    "path" : "D:/UChicago/Spring Course/Spring20/Multivariate/midterm/code/ama.R",
+    "project_path" : "ama.R",
+    "properties" : {
+        "cursorPosition" : "1358,14",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

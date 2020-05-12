@@ -1,0 +1,17 @@
+\lstset{language=Python}
+\lstset{frame=lines}
+\lstset{caption={IV Estimator and its Rejection ratio}}
+\lstset{label={lst:code_direct}}
+\lstset{basicstyle=\footnotesize}
+\begin{lstlisting}
+    # loop for 1000 times simulation:
+        model_yx = sm.OLS(y-z*pi_sim, z*pi_sim).fit()
+        beta_result.append(model_yx.params[0])
+
+    std_hat = np.std(beta_result)
+    mean_hat = np.mean(beta_result)
+    # 1.96 corresponds to the asymptotic normal distribution assumption at 5% level
+    upper_bound = mean_hat + 1.96*std_hat
+    lower_bound = mean_hat - 1.96*std_hat
+    significant_beta = 100 - (percentileofscore(beta_result, upper_bound) - percentileofscore(beta_result, lower_bound))
+\end{lstlisting}

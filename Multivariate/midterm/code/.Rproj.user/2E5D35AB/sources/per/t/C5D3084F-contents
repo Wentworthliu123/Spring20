@@ -1,0 +1,142 @@
+---
+title: "HW2_Xinyu Liu"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+source('ama.R')
+head_data=read.table("Glucose.DAT",header=TRUE)
+y <- head_data[,1:3]
+x <- head_data[,4:6]
+# cor for x,y 
+cor(x, y,method="kendall")
+
+cor(x, y,method="spearman")
+
+# covariance matrices test
+colnames(x)<-colnames(y)
+nv = c(dim(x)[1],dim(y)[1])
+data = rbind(x,y)
+BoxM(data,nv)
+
+# mean test
+Behrens(x,y)
+
+# LSE
+for (i in 1:3)
+  nn=lm(y[,i]~.,data=x)
+  print(summary(nn))
+```
+
+```{r}
+# Problem G
+source('ama.R')
+head_data=read.table("Barsteel.DAT",header=TRUE)
+y=cbind(head_data[,3],head_data[,4]) 
+y1 <- factor(head_data[,1])
+y2 <- factor(head_data[,2])
+
+m2=manova(y~y1+y2+y1*y2)
+m2
+summary(m2,test="Wilks")
+```
+```{r}
+# Lasso regression
+library(glmnet)
+da <- read.table('ProblemH.txt')
+y1 <- as.numeric(da[,1]); y2 <- da[,2] 
+x1 <- matrix(unlist(da[,3:302]), ncol = 300, byrow = FALSE)
+require(glmnet)
+m2 <- glmnet(x1,y1,alpha=1,nfolds = 10)
+cv.m2 <- cv.glmnet(x1,y1,alpha=1,nfolds = 10)
+cv.m2$lambda.min
+#b1 <-coef(m2,s=cv.m2$lambda.min)
+plot(1:301,b1[,1])
+idx <- c(1:300)[abs(b1[2:301,1])>0.2]
+source('Lassosim.R')
+
+```
+
+```{r}
+plot(1:301,b1[,1])
+idx <- c(1:300)[abs(b1[2:301,1])>0.2]
+source('Lassosim.R')
+m3 <- sBoot(y1,x1)
+idx <- c(1:300)[abs(m3$beta)>0.2]
+plot(y1,m3$yhat)
+```
+
+```{r}
+
+c1 <- paste('x',1:300,sep='') 
+colnames(x) <- c1 
+X <- model.matrix(y1~.+(x1+x2+x3+x4+x5+x6+x7+x8+x9+x10)^2,data=data.frame(x)) 
+X <- X[,-1] ## remove the intercept from the design matrix.
+
+lambdas <- 10^seq(2, -3, by = -.1)
+
+# Setting alpha = 1 implements lasso regression
+lasso_reg <- cv.glmnet(X, y, alpha = 1, lambda = lambdas, standardize = TRUE, nfolds = 10)
+
+# Best 
+lambda_best <- lasso_reg$lambda.min 
+lambda_best
+```
+
+
+
+```{r}
+pairs(head_data,panel=function(x,y){points(x,y); abline(lm(y~x),col="red")})
+```
+
+```{r}
+qqchi2(y)
+```
+
+```{r}
+ Hotelling(y,c(184,149)) 
+```
+
+```{r}
+confreg(y) 
+```
+
+```{r}
+require(MVA)
+
+plot(SHL~SHB,data=x)
+rug(x$SHL,side=1)
+rug(x$SHB,side=2)
+par(mar=c(2,1,1,1)) ## set margins for plots
+layout(matrix(c(2,0,1,3),nrow=2,byrow=T),widths=c(2,1),heights=c(1,2),respect=T)
+ 
+bvbox(x)
+with(plot(density(x$SHL)))
+with(plot(density(x$SHB)))
+```
+```{r}
+layout( matrix( c(0,2,2,1,3,3,1,3,3),ncol=3) )
+d.x <- density(x$SHL)
+d.y <- density(x$SHB)
+plot(d.x$x, d.x$y, type='l')
+plot(d.y$y, d.y$x, type='l')
+bvbox(x, xlab="SHL",ylab="SHB")
+```
+```{r}
+Behrens(y,x) 
+```
+```{r}
+sample_cov <- cov(head_data)
+ev <- eigen(sample_cov)
+ev$values
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.

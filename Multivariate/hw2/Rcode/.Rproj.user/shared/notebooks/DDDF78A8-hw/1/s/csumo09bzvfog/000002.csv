@@ -1,0 +1,1 @@
+"0","pairs(head_data,panel=function(x,y){points(x,y); abline(lm(y~x),col=""red"")})"

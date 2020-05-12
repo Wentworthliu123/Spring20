@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1588695438165.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "43CB4EE8",
+    "lastKnownWriteTime" : 15,
+    "last_content_update" : 1588695438165,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "55B067CC",
+        "caption" : "wear_data",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=wear_data&cache_key=55B067CC",
+        "displayedObservations" : 24,
+        "environment" : "",
+        "expression" : "wear_data",
+        "object" : "wear_data",
+        "preview" : 0,
+        "totalObservations" : 24,
+        "variables" : 7
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 12,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

@@ -1,0 +1,68 @@
+---
+title: "HW2_Xinyu Liu"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+source('ama.R')
+head_data=read.table("SonsHead.DAT",header=TRUE)
+y <- head_data[,1:2]
+x <- head_data[,3:4]
+
+```
+
+```{r}
+pairs(head_data,panel=function(x,y){points(x,y); abline(lm(y~x),col="red")})
+```
+
+```{r}
+qqchi2(y)
+```
+
+```{r}
+ Hotelling(y,c(184,149)) 
+```
+
+```{r}
+confreg(y) 
+```
+
+```{r}
+require(MVA)
+
+plot(SHL~SHB,data=x)
+rug(x$SHL,side=1)
+rug(x$SHB,side=2)
+par(mar=c(2,1,1,1)) ## set margins for plots
+layout(matrix(c(2,0,1,3),nrow=2,byrow=T),widths=c(2,1),heights=c(1,2),respect=T)
+ 
+bvbox(x)
+with(plot(density(x$SHL)))
+with(plot(density(x$SHB)))
+```
+```{r}
+layout( matrix( c(0,2,2,1,3,3,1,3,3),ncol=3) )
+d.x <- density(x$SHL)
+d.y <- density(x$SHB)
+plot(d.x$x, d.x$y, type='l')
+plot(d.y$y, d.y$x, type='l')
+bvbox(x, xlab="SHL",ylab="SHB")
+```
+```{r}
+Behrens(y,x) 
+```
+```{r}
+sample_cov <- cov(head_data)
+ev <- eigen(sample_cov)
+ev$values
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.

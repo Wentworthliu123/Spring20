@@ -1,0 +1,27 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1588688716604.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1388417455",
+    "id" : "16BF3CBC",
+    "lastKnownWriteTime" : 1588701161,
+    "last_content_update" : 1588701161504,
+    "path" : "D:/UChicago/Spring Course/Spring20/Multivariate/midterm/code/Midterm.Rmd",
+    "project_path" : "Midterm.Rmd",
+    "properties" : {
+        "cursorPosition" : "83,0",
+        "last_setup_crc32" : "",
+        "scrollLine" : "81",
+        "tempName" : "Untitled1"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 10,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_markdown"
+}

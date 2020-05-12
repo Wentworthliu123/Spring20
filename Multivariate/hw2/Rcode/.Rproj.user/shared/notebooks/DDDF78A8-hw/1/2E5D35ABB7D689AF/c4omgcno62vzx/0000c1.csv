@@ -1,0 +1,4 @@
+"0","with(plot(density(x$SHL)))"
+"2","Error in eval(substitute(expr), data, enclos = parent.frame()) : 
+  缺少参数, 也没有缺省值
+"

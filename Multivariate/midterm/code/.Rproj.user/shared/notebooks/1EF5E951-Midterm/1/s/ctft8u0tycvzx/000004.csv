@@ -1,0 +1,2 @@
+"0","b1 <-coef(m2,s=cv.m2$lambda.min)"
+"0","plot(1:501,b1[,1])"
